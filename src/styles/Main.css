@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root{
+  --dark-bg: #040303;
+  --dark-for: #6A7B76;
+  --dark-sec: #3A4E48;
+  --dark-ac: #8B9D83;
+  --dark-button: #BEB0A7;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+

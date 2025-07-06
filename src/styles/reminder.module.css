@@ -1,0 +1,10 @@
+.body{
+    display: flex;
+    background: var(--dark-sec);
+    border-radius: 7px;
+    min-height: 50px;
+    text-align: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+}
