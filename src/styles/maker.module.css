@@ -1,0 +1,17 @@
+
+.main{
+    display: flex;
+    background: var(--dark-bg);
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.container{
+    background: var(--dark-for);
+    border-radius: 10px;
+    width: 95%;
+    height: 90%;
+}

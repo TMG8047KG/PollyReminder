@@ -1,9 +1,11 @@
 import style from './styles/reminder.module.css';
 
-function reminder({text}:{text:string}){
+function reminder({title, description, time}:{title:string; description:string; time: string}){
     return(
         <div className={style.body}>
-            {text}
+            {title}-
+            {description}-
+            {time}
         </div>
     )
 }
