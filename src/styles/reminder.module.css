@@ -2,9 +2,39 @@
     display: flex;
     background: var(--dark-sec);
     border-radius: 7px;
-    min-height: 50px;
-    text-align: center;
-    justify-content: center;
     padding: 5px;
     margin: 5px;
+    flex-direction: column;
+}
+
+.title{
+    font-size: 20px;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.description{
+    padding: 5px;
+    margin: 5px;
+    font-size: 14px;
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+}
+
+.footer{
+    display: flex;
+    text-align: start;
+    font-size: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3px;
+}
+
+.time{
+    display: flex;
+    align-items: center;
+}
+
+.icon{
+    height: 18px;
 }

@@ -1,7 +1,7 @@
 import style from './styles/main.module.css';
 import "./styles/Main.css";
 import Reminder from './Reminder';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BaseDirectory, exists, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { useNavigate } from 'react-router';
 
@@ -15,7 +15,6 @@ function App() {
       const savedReminders = await readTextFile('reminders.json', { baseDir: BaseDirectory.AppLocalData });
       const reminders = JSON.parse(savedReminders);
       setReminders(reminders.reminders);
-      console.log(reminders);
     }else{
       const structure = {
         reminders: []
@@ -23,8 +22,14 @@ function App() {
       await writeTextFile('reminders.json', JSON.stringify(structure), {baseDir: BaseDirectory.AppLocalData});
     }
   }
+  
+  const handleReminderDeletion = async (uuid: string) => {
+    setReminders((reminders) => reminders.filter((reminder) => reminder.uuid !== uuid))
+  }
 
-  getReminders()
+  useEffect(() => {
+    getReminders();
+  }, []);
 
   return (
     <div className={style.main}>
@@ -33,7 +38,7 @@ function App() {
           <div className={style.list}>
             {reminders.length > 0 ? (
               reminders.map((reminder) => (
-                <Reminder title={reminder.title} description={reminder.description} time={reminder.date} />
+                <Reminder key={reminder.uuid} uuid={reminder.uuid} title={reminder.title} description={reminder.description} time={reminder.date} onDelete={handleReminderDeletion}/>
               ))) : (<p>No reminders, yet!</p>)
             }
           </div>
