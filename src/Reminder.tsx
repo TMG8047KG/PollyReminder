@@ -1,9 +1,11 @@
 import { BaseDirectory, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import style from './styles/reminder.module.css';
 import { useEffect, useState } from 'react';
+import { sendNotification } from '@tauri-apps/plugin-notification';
 
 function reminder({uuid, title, description, time, onDelete}:{uuid: string, title:string; description:string; time: string, onDelete: (uuid: string) => void}){
     const [when, setWhen] = useState("");
+    const [hasEnded, setEnded] = useState(false);
 
     const deleteReminder = async () => {
         const savedReminders = await readTextFile('reminders.json', { baseDir: BaseDirectory.AppLocalData });
@@ -20,7 +22,18 @@ function reminder({uuid, title, description, time, onDelete}:{uuid: string, titl
     const formatTime = () => {
         const mills = Date.parse(time);
         const difference = mills - Date.now();
-        if(difference <= 0) return setWhen(`Passed`);
+        if(difference <= 0) {
+            setEnded(true);
+            if(!hasEnded){
+                sendNotification({
+                    title: title,
+                    body: description,
+                    channelId: 'reminder'
+                })
+                console.log("Notification sent!");    
+            }
+            return setWhen(`Passed`);
+        }
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -38,12 +51,14 @@ function reminder({uuid, title, description, time, onDelete}:{uuid: string, titl
     }
 
     useEffect(() => {
+        if(hasEnded) return;
+
         const interval = setInterval(() => {
             formatTime();
         }, 1000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [hasEnded]);
 
 
     return(

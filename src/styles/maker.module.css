@@ -1,7 +1,7 @@
 
 .main{
     display: flex;
-    background: var(--dark-bg);
+    background: var(--dark-rim);
     height: 100vh;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
 }
 
 .container{
-    background: var(--dark-for);
+    background: var(--dark-bg);
     border-radius: 10px;
     width: 95vw;
     height: 97.5vh;
@@ -35,6 +35,12 @@
     padding: 0 10px;
     height: 30px;
     outline: none;
+    background: var(--dark-second);
+    color: var(--dark-fore);
+}
+
+.field::placeholder{
+    color: var(--dark-ph);
 }
 
 .text{
@@ -42,6 +48,12 @@
     padding: 10px;
     resize: none;    
     outline: none;
+    background: var(--dark-second);
+    color: var(--dark-fore);
+}
+
+.text::placeholder{
+    color: var(--dark-ph);
 }
 
 .time{
@@ -50,15 +62,20 @@
     padding: 0 10px;
     width: 85vw;
     outline: none;
+    background: var(--dark-second);
+    color: var(--dark-fore);
 }
 
 .submit{
     border-radius: 10px;
     margin-bottom: 15px;
     height: 40px;
+    background: var(--dark-button);
+    color: var(--dark-fore);
 }
 
 .title{
     font-size: 24px;
     text-align: center;
+    color: var(--dark-accent);
 }

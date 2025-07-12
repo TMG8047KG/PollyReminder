@@ -32,6 +32,18 @@ function maker(){
         nav("/");
     }    
 
+    const currentTime = () => {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        return now.toISOString().slice(0, 16);
+    }
+
+    const defaultTime = () => {
+        const now = new Date();
+        now.setMinutes((now.getMinutes() - now.getTimezoneOffset()) + 5);
+        return now.toISOString().slice(0, 16);
+    }
+
     return(
         <div className={style.main}>
             <div className={style.container}>
@@ -40,7 +52,7 @@ function maker(){
                         <div className={style.title}>Reminder Factory</div>
                         <input className={style.field} name="title" type='text' placeholder='Title'/>
                         <textarea className={style.text} name="description" rows={5} placeholder='Description'/>
-                        <input className={style.time} name="date" type='datetime-local' min={new Date(Date.now() + 60 * 1000).toISOString().slice(0, 16)} defaultValue={new Date(Date.now() + ((5 * 60) * 1000)).toISOString().slice(0, 16)}/>
+                        <input className={style.time} name="date" type='datetime-local' min={currentTime()} defaultValue={defaultTime()}/>
                     </div>
                     <button className={style.submit} type='submit'>Add</button>
                 </form>

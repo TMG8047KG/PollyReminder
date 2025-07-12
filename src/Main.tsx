@@ -4,6 +4,7 @@ import Reminder from './Reminder';
 import { useEffect, useState } from 'react';
 import { BaseDirectory, exists, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { useNavigate } from 'react-router';
+import './NotificationChannel';
 
 function App() {
   const nav = useNavigate();
@@ -33,21 +34,21 @@ function App() {
 
   return (
     <div className={style.main}>
-        <div className={style.container}>
-          <div className={style.title}>PollyReminder</div>
-          <div className={style.list}>
-            {reminders.length > 0 ? (
-              reminders.map((reminder) => (
-                <Reminder key={reminder.uuid} uuid={reminder.uuid} title={reminder.title} description={reminder.description} time={reminder.date} onDelete={handleReminderDeletion}/>
-              ))) : (<p>No reminders, yet!</p>)
-            }
-          </div>
+      <div className={style.title}>PollyReminder</div>
+      <div className={style.container}>
+        <div className={style.list}>
+          {reminders.length > 0 ? (
+            reminders.map((reminder) => (
+              <Reminder key={reminder.uuid} uuid={reminder.uuid} title={reminder.title} description={reminder.description} time={reminder.date} onDelete={handleReminderDeletion}/>
+            ))) : (<p>No reminders, yet!</p>)
+          }
         </div>
-        <div className={style.buttons}>
-          <div className={style.button}>-</div>
-          <div className={style.button} onClick={() => nav('/remindmaker')}>+</div>
-          <div className={style.button}>-</div>
-        </div>
+      </div>
+      <div className={style.buttons}>
+        <div className={style.button}>-</div>
+        <div className={style.button} onClick={() => nav('/remindmaker')}>+</div>
+        <div className={style.button}>-</div>
+      </div>
     </div>
   );
 }

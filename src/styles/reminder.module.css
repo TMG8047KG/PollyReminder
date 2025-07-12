@@ -1,9 +1,8 @@
 .body{
     display: flex;
-    background: var(--dark-sec);
+    background: var(--dark-button);
     border-radius: 7px;
     padding: 5px;
-    margin: 5px;
     flex-direction: column;
 }
 

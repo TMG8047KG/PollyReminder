@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root{
-  --dark-bg: #141B41;
-  --dark-for: #6f9ceb;
-  --dark-sec: #306bac;
-  --dark-ac: #98B9F2;
-  --dark-button: #918ef4;
-    /* --dark-bg: #040303;
-  --dark-for: #6A7B76;
-  --dark-sec: #3A4E48;
-  --dark-ac: #8B9D83;
-  --dark-button: #BEB0A7; */
+/* Dark Theme */
+  --dark-rim: #0D1B2A;
+  --dark-bg: #1B263B;
+  --dark-accent: #00A8E8;
+  --dark-fore: #E0E1DD;
+  --dark-button: #1D3557;
+  --dark-second: #3A506B;
+  --dark-ph: #A0AEC0;
+
+/* Light Theme */
+  --light-rim: #F4F9FF;
+  --light-bg: #E9F2FA;
+  --light-accent: #0077B6;
+  --light-fore: #1B1F23;
+  --light-button: #1D4E89;
+  --light-second: #A8C0D6;
+  --light-ph: #6B7280;
 }
 
 *{

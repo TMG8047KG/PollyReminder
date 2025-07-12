@@ -2,27 +2,29 @@
 
 .main{
     display: flex;
-    background: var(--dark-bg);
+    background: var(--dark-rim);
     height: 100vh;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 5px;
+    color: var(--dark-fore);
 }
 
 .container{
-    background: var(--dark-for);
+    background: var(--dark-bg);
     border-radius: 10px;
     width: 95%;
-    height: 90%;
+    height: 100%;
 }
 
 .list{
     display: flex;
-    width: 100%;
-    height: 93.5%;
+    height: 93%;
+    margin: 5px;
     overflow: scroll;
     flex-direction: column;
+    border-radius: 7px;
+    gap: 5px;
 }
 
 .list p{
@@ -31,10 +33,10 @@
 }
 
 .title{
+    display: flex;
+    color: var(--dark-accent);
     width: 100%;
-    height: 40px;
-    background: var(--dark-ac);
-    border-radius: 10px 10px 0 0;
+    height: 50px;
     text-align: center;
     font-family: "Bitcount Grid Double", system-ui;
     font-optical-sizing: auto;
@@ -46,12 +48,13 @@
         "ELSH" 0,
         "ELXP" 0;
     font-size: 25px;
-    align-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons{
     display: flex;
-    background: var(--dark-for);
+    background: var(--dark-second);
     max-width: 95%;
     width: 92%;
     height: 7%;
@@ -59,6 +62,7 @@
     border-radius: 10px;
     justify-content: space-between;
     align-items: center;
+    margin: 5px 0px 10px 0px;
 }
 
 .button{
