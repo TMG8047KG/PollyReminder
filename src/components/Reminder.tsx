@@ -1,11 +1,11 @@
 import { BaseDirectory, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
-import style from './styles/reminder.module.css';
+import style from '../styles/reminder.module.css';
 import { useEffect, useState } from 'react';
 import { sendNotification } from '@tauri-apps/plugin-notification';
 
 function reminder({uuid, title, description, time, onDelete}:{uuid: string, title:string; description:string; time: string, onDelete: (uuid: string) => void}){
     const [when, setWhen] = useState("");
-    const [hasEnded, setEnded] = useState(false);
+    const [isPassed, setPassed] = useState(false);
 
     const deleteReminder = async () => {
         const savedReminders = await readTextFile('reminders.json', { baseDir: BaseDirectory.AppLocalData });
@@ -19,46 +19,58 @@ function reminder({uuid, title, description, time, onDelete}:{uuid: string, titl
         onDelete(uuid);
     }
 
+    const handlePassedReminder = async () => {
+        const savedReminders = await readTextFile('reminders.json', { baseDir: BaseDirectory.AppLocalData });
+        let reminders = JSON.parse(savedReminders);
+        const reminder = reminders.reminders.find((reminder: { uuid: string; }) => reminder.uuid === uuid);
+        reminder.date = "Passed";
+        const updatedReminders = JSON.stringify(reminders);
+        await writeTextFile('reminders.json', updatedReminders, { baseDir: BaseDirectory.AppLocalData });
+        sendNotification({
+            title: title,
+            body: description,
+            channelId: 'reminder',
+            icon: 'icon'
+        })
+        console.log("Notification sent!");   
+        setPassed(true);
+    }
+
     const formatTime = () => {
+        if(time === "Passed") {
+            setWhen("Passed");
+            setPassed(true);
+            return;
+        }
         const mills = Date.parse(time);
         const difference = mills - Date.now();
-        if(difference <= 0) {
-            setEnded(true);
-            if(!hasEnded){
-                sendNotification({
-                    title: title,
-                    body: description,
-                    channelId: 'reminder'
-                })
-                console.log("Notification sent!");    
-            }
-            return setWhen(`Passed`);
-        }
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-        if(days > 0){
-            return setWhen(`in ${days} days`);
+        if(difference <= 0) {
+            if(!isPassed){
+                handlePassedReminder();
+            }
+            return setWhen(`Passed`);
         }
-        if(hours > 0){
-            return setWhen(`in ${hours} hours`);
-        }
-        if(minutes > 0){
-            return setWhen(`in ${minutes} minutes`);
-        }
+        if(days > 0) return setWhen(`in ${days} days`);
+        if(hours > 0) return setWhen(`in ${hours} hours`);
+        if(minutes > 0) return setWhen(`in ${minutes} minutes`);
         setWhen(`in ${seconds} seconds`);
     }
 
     useEffect(() => {
-        if(hasEnded) return;
+        if(isPassed) return;
+
+        formatTime();
 
         const interval = setInterval(() => {
             formatTime();
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [hasEnded]);
+    }, [isPassed]);
 
 
     return(

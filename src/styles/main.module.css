@@ -66,12 +66,18 @@
 }
 
 .button{
+    display: flex;
     background: var(--dark-button);
     padding: 5px;
     margin: 5px;
     border-radius: 50%;
     width: 20px;
     height: 20px;
-    text-align: center;
     box-shadow: black 0 0 3px 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    height: 18px;
 }
